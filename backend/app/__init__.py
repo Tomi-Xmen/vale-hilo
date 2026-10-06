@@ -4,7 +4,7 @@ from flask import Flask
 
 from app.config import configs
 from app.extensions import db, migrate
-from app.modules.health.routes import bp as health_bp
+from app.modules import register_blueprints
 
 
 def create_app(config_name=None):
@@ -16,6 +16,6 @@ def create_app(config_name=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    app.register_blueprint(health_bp, url_prefix="/api")
+    register_blueprints(app)
 
     return app

@@ -9,3 +9,5 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+# Permite repetir nombres de archivo (test_routes.py, test_service.py) en cada módulo.
+addopts = "--import-mode=importlib"

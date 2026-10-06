@@ -1,15 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { AppLayout } from '@/app/layout/AppLayout'
 import { HealthStatus } from '@/features/health/HealthStatus'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <main className="mx-auto max-w-md p-8">
-        <h1 className="mb-4 text-2xl font-semibold">Agenda</h1>
-        <HealthStatus />
-      </main>
-    ),
+    element: <AppLayout />,
+    children: [{ index: true, element: <HealthStatus /> }],
   },
 ])
 
