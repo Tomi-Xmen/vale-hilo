@@ -1,0 +1,21 @@
+# Entorno
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
