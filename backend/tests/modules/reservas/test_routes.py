@@ -78,3 +78,23 @@ def test_reservar_con_hora_en_utc_se_convierte_a_hora_de_chile(client, crear_ser
 
     assert response.status_code == 201
     assert response.get_json()["inicio"] == "2026-10-12T10:00:00"
+
+
+# --- GET /api/reservas/<id> --------------------------------------------------
+
+
+def test_ver_reserva(client, crear_servicio):
+    servicio = crear_servicio(nombre="Corte de pelo")
+    creada = client.post("/api/reservas", json=datos_reserva(servicio.id)).get_json()
+
+    response = client.get(f"/api/reservas/{creada['id']}")
+
+    assert response.status_code == 200
+    reserva = response.get_json()
+    assert reserva["servicio_nombre"] == "Corte de pelo"
+    assert reserva["puede_pagar"] is True
+    assert "cliente_email" not in reserva
+
+
+def test_ver_reserva_inexistente(client):
+    assert client.get("/api/reservas/999").status_code == 404

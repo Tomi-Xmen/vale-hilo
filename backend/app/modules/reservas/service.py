@@ -82,6 +82,34 @@ def crear_reserva(datos):
     return reserva
 
 
+def obtener_reserva(reserva_id):
+    return db.session.get(Reserva, reserva_id)
+
+
+def esta_esperando_pago(reserva):
+    """True si la reserva todavía tiene la hora bloqueada esperando el pago."""
+    return reserva.estado == EstadoReserva.PENDIENTE_PAGO and reserva.expira_en > ahora()
+
+
+def confirmar_reserva(reserva):
+    """Confirma una reserva ya pagada. Falla si mientras tanto otra persona tomó la hora."""
+    _bloquear_agenda()
+
+    if reserva.estado != EstadoReserva.PENDIENTE_PAGO:
+        raise HoraNoDisponible()
+
+    # Si el pago llegó después de que expiró el bloqueo, la hora pudo quedar tomada.
+    otras_reservas = [
+        otra for otra in _reservas_que_ocupan(reserva.inicio, reserva.fin) if otra.id != reserva.id
+    ]
+    if otras_reservas:
+        raise HoraNoDisponible()
+
+    reserva.estado = EstadoReserva.CONFIRMADA
+    reserva.expira_en = None
+    db.session.commit()
+
+
 def _es_fecha_reservable(fecha):
     hoy = ahora().date()
     return hoy <= fecha <= hoy + timedelta(days=DIAS_MAXIMOS_ANTICIPACION)

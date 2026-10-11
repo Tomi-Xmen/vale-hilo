@@ -31,9 +31,10 @@ class ReservaIn(BaseModel):
 class ReservaOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+    # Sin datos del cliente: cualquiera que adivine un id podría ver esta respuesta.
     id: int
     servicio_id: int
-    cliente_nombre: str
+    servicio_nombre: str
     inicio: datetime
     fin: datetime
     estado: str

@@ -33,3 +33,7 @@ class Reserva(db.Model):
     creada_en: Mapped[datetime] = mapped_column(default=ahora)
 
     servicio = relationship("Servicio")
+
+    @property
+    def servicio_nombre(self):
+        return self.servicio.nombre

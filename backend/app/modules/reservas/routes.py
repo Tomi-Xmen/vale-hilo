@@ -6,6 +6,8 @@ from app.modules.reservas.service import (
     ServicioNoEncontrado,
     calcular_horas_disponibles,
     crear_reserva,
+    esta_esperando_pago,
+    obtener_reserva,
 )
 from app.modules.servicios.service import obtener_servicio_activo
 
@@ -38,4 +40,19 @@ def reservar():
     except HoraNoDisponible:
         return {"error": "Esa hora ya no está disponible"}, 409
 
-    return ReservaOut.model_validate(reserva).model_dump(mode="json"), 201
+    return _reserva_como_json(reserva), 201
+
+
+@bp.get("/reservas/<int:reserva_id>")
+def ver_reserva(reserva_id):
+    reserva = obtener_reserva(reserva_id)
+    if reserva is None:
+        return {"error": "La reserva no existe"}, 404
+    return _reserva_como_json(reserva)
+
+
+def _reserva_como_json(reserva):
+    datos = ReservaOut.model_validate(reserva).model_dump(mode="json")
+    # Le dice al frontend si todavía puede mandar al cliente a pagar.
+    datos["puede_pagar"] = esta_esperando_pago(reserva)
+    return datos
