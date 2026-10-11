@@ -3,6 +3,7 @@ import os
 from flask import Flask
 
 from app.config import configs
+from app.errores import registrar_manejadores_de_errores
 from app.extensions import db, migrate
 from app.modules import register_blueprints
 
@@ -17,5 +18,6 @@ def create_app(config_name=None):
     migrate.init_app(app, db)
 
     register_blueprints(app)
+    registrar_manejadores_de_errores(app)
 
     return app

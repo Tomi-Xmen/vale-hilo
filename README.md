@@ -72,14 +72,11 @@ backend/
     __init__.py           create_app(): config, extensiones y Blueprints
     config.py             configuración por entorno (development / testing / production)
     extensions.py         instancias compartidas (db, migrate)
-    common/               código compartido sin lógica de negocio (errores, helpers)
     modules/
       __init__.py         lista de Blueprints registrados bajo /api
       health/             GET /api/health
-      auth/               (pendiente)
-      servicios/          (pendiente)
+      servicios/          GET /api/servicios
       reservas/           (pendiente)
-      pagos/              (pendiente) Webpay Plus
   migrations/             migraciones de Alembic (Flask-Migrate)
   tests/
     conftest.py           fixtures globales (app, client)
@@ -88,8 +85,7 @@ frontend/src/
   main.tsx                punto de entrada
   app/                    router, providers globales (TanStack Query) y layout
   features/<dominio>/     api.ts + componentes, hooks y páginas del dominio
-  components/ui/          componentes visuales genéricos (botones, inputs, modales)
-  lib/                    cliente HTTP y utilidades sin dominio
+  lib/                    cliente HTTP y utilidades sin dominio (formato de precios, etc.)
 docker-compose.yml        Postgres, backend y frontend para desarrollo
 .env.example              variables de entorno necesarias (copiar a .env)
 ```
@@ -124,6 +120,6 @@ features/reservas/
 - `routes → service → models`. Las rutas no tocan la base de datos directamente.
 - Un módulo usa otro **solo a través de su `service.py`** (ej. `pagos` llama a
   `reservas.service`), nunca importando sus rutas.
-- `common/`, `lib/` y `components/ui/` no importan nada de `modules/` ni de `features/`.
+- `lib/` no importa nada de `features/`.
 - Una feature del frontend no importa archivos internos de otra; lo compartido se mueve
-  a `components/ui/` o `lib/`.
+  a `lib/` (o a `components/ui/` cuando haya componentes visuales reutilizables).

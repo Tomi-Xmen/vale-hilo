@@ -4,3 +4,5 @@ flask-migrate
 psycopg[binary]
 pydantic
 python-dotenv
+email-validator
+tzdata
