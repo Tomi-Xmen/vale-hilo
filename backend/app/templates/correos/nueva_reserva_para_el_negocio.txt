@@ -1,0 +1,9 @@
+Nueva reserva
+
+Servicio: {{ servicio }}
+Cuándo: {{ cuando }}
+Abono pagado: {{ abono }}
+
+Cliente: {{ cliente_nombre }}
+Teléfono: {{ cliente_telefono }}
+Email: {{ cliente_email }}

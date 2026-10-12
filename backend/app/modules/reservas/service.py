@@ -110,6 +110,39 @@ def confirmar_reserva(reserva):
     db.session.commit()
 
 
+def listar_reservas_del_dia(fecha):
+    """Reservas de ese día para el panel, por hora.
+
+    Incluye confirmadas, canceladas y las que alguien está pagando en este momento.
+    Las pendientes que expiraron se omiten: el cliente nunca pagó.
+    """
+    no_es_pendiente_expirada = or_(
+        Reserva.estado != EstadoReserva.PENDIENTE_PAGO,
+        Reserva.expira_en > ahora(),
+    )
+    consulta = (
+        select(Reserva)
+        .where(
+            Reserva.inicio >= datetime.combine(fecha, datetime.min.time()),
+            Reserva.inicio < datetime.combine(fecha + timedelta(days=1), datetime.min.time()),
+            no_es_pendiente_expirada,
+        )
+        .order_by(Reserva.inicio)
+    )
+    return db.session.scalars(consulta).all()
+
+
+def se_puede_cancelar(reserva):
+    return reserva.estado != EstadoReserva.CANCELADA
+
+
+def cancelar_reserva(reserva):
+    """Cancela la reserva y libera la hora. Devolver el abono es un paso aparte (pagos)."""
+    reserva.estado = EstadoReserva.CANCELADA
+    reserva.expira_en = None
+    db.session.commit()
+
+
 def _es_fecha_reservable(fecha):
     hoy = ahora().date()
     return hoy <= fecha <= hoy + timedelta(days=DIAS_MAXIMOS_ANTICIPACION)

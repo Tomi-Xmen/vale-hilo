@@ -1,0 +1,11 @@
+{% extends "correos/base.html" %}
+{% block contenido %}
+<h1 style="margin:0 0 16px; font-size:22px;">Nueva reserva</h1>
+{% include "correos/_detalle_reserva.html" %}
+<p style="margin:16px 0 4px; font-weight:bold;">Cliente</p>
+<p style="margin:0; font-size:14px; line-height:1.6;">
+  {{ cliente_nombre }}<br>
+  <a href="tel:{{ cliente_telefono }}" style="color:#9c4664;">{{ cliente_telefono }}</a><br>
+  <a href="mailto:{{ cliente_email }}" style="color:#9c4664;">{{ cliente_email }}</a>
+</p>
+{% endblock %}

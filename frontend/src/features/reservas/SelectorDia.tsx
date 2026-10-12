@@ -51,10 +51,10 @@ export function SelectorDia({ fechaElegida, onElegir }: Props) {
               key={fecha}
               type="button"
               onClick={() => onElegir(fecha)}
-              className={`flex flex-col items-center rounded-lg border py-2 transition ${
+              className={`flex flex-col items-center rounded-xl border py-2 transition ${
                 elegido
-                  ? 'border-marca-600 bg-marca-600 text-white'
-                  : 'border-gray-200 bg-white hover:border-marca-500'
+                  ? 'border-tinta bg-tinta text-white'
+                  : 'border-marca-100 bg-white hover:border-marca-500'
               }`}
             >
               <span className="text-xs capitalize">{formatDiaSemana(dia)}</span>
@@ -81,7 +81,7 @@ function BotonFlecha({ etiqueta, disabled, onClick, children }: BotonFlechaProps
       aria-label={etiqueta}
       disabled={disabled}
       onClick={onClick}
-      className="h-8 w-8 rounded-lg border border-gray-200 bg-white text-lg leading-none hover:bg-gray-50 disabled:opacity-40"
+      className="h-8 w-8 rounded-full border border-marca-100 bg-white text-lg leading-none hover:bg-gray-50 disabled:opacity-40"
     >
       {children}
     </button>

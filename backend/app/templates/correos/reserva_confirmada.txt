@@ -1,0 +1,13 @@
+¡Tu reserva está confirmada!
+
+Hola {{ cliente_nombre }}, recibimos tu abono y tu hora quedó reservada.
+
+Servicio: {{ servicio }}
+Cuándo: {{ cuando }}
+Abono pagado: {{ abono }}
+
+El resto del valor del servicio se paga el día de tu cita. Si necesitas cambiar o cancelar tu hora, responde este correo.
+
+Ver mi reserva: {{ url_reserva }}
+
+{{ nombre_negocio }}

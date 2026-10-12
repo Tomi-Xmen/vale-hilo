@@ -59,7 +59,7 @@ describe('Página para reservar', () => {
     expect(botonPagar()).toBeDisabled()
   })
 
-  it('muestra el abono y lo que queda por pagar en el local', async () => {
+  it('muestra el abono y lo que queda por pagar el día de la cita', async () => {
     simularBackend(backendQueFunciona())
     abrirApp('/reservar/1')
 

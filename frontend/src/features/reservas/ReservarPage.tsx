@@ -60,7 +60,7 @@ export function ReservarPage() {
     return (
       <div>
         <p className="mb-4 text-gray-600">Este servicio no existe o ya no está disponible.</p>
-        <Link to="/" className="font-medium text-marca-600 hover:underline">
+        <Link to="/" className="font-medium text-marca-700 hover:underline">
           ← Ver servicios
         </Link>
       </div>
@@ -69,10 +69,12 @@ export function ReservarPage() {
 
   return (
     <div>
-      <Link to="/" className="text-sm font-medium text-marca-600 hover:underline">
+      <Link to="/" className="text-sm font-medium text-marca-700 hover:underline">
         ← Servicios
       </Link>
-      <h1 className="mt-2 mb-6 text-2xl font-semibold sm:text-3xl">Reservar {servicio.nombre}</h1>
+      <h1 className="mt-2 mb-8 font-display text-4xl font-semibold first-letter:uppercase sm:text-5xl">
+        Reservar {servicio.nombre}
+      </h1>
 
       <div className="grid items-start gap-8 lg:grid-cols-[1fr_380px]">
         <div className="space-y-8">

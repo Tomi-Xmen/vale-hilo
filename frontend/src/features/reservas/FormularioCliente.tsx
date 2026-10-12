@@ -1,4 +1,5 @@
-import type { FormEvent, ReactElement } from 'react'
+import type { FormEvent } from 'react'
+import { Campo } from '@/components/ui/Campo'
 import type { DatosCliente } from './api'
 
 type Props = {
@@ -37,23 +38,5 @@ export function FormularioCliente({ id, onEnviar }: Props) {
         />
       </Campo>
     </form>
-  )
-}
-
-type CampoProps = {
-  etiqueta: string
-  className?: string
-  children: ReactElement
-}
-
-// Da el mismo estilo a todos los inputs del formulario.
-function Campo({ etiqueta, className = '', children }: CampoProps) {
-  return (
-    <label
-      className={`flex flex-col gap-1 text-sm font-medium text-gray-700 [&_input]:rounded-lg [&_input]:border [&_input]:border-gray-300 [&_input]:px-3 [&_input]:py-2.5 [&_input]:text-base [&_input]:font-normal [&_input]:focus:border-marca-500 [&_input]:focus:outline-none ${className}`}
-    >
-      {etiqueta}
-      {children}
-    </label>
   )
 }

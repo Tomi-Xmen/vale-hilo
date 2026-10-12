@@ -25,8 +25,8 @@ export function ResumenReserva({
   const falta = hora === null ? 'Elige una hora para continuar' : null
 
   return (
-    <aside className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold">Resumen</h2>
+    <aside className="rounded-2xl border border-marca-100 bg-white p-6 shadow-sm shadow-marca-100">
+      <h2 className="mb-4 font-display text-2xl font-semibold">Resumen</h2>
 
       <dl className="space-y-2 text-sm">
         <Fila nombre="Servicio" valor={servicio.nombre} />
@@ -37,13 +37,13 @@ export function ResumenReserva({
       </dl>
 
       {montoAbono !== undefined && (
-        <div className="mt-4 rounded-lg bg-marca-50 p-3 text-sm">
+        <div className="mt-5 rounded-xl bg-marca-50 p-4 text-sm">
           <div className="flex justify-between font-semibold text-marca-700">
             <span>Abono a pagar ahora</span>
             <span>{formatPrecio(montoAbono)}</span>
           </div>
           <p className="mt-1 text-gray-600">
-            El resto ({formatPrecio(servicio.precio - montoAbono)}) se paga en el local.
+            El resto ({formatPrecio(servicio.precio - montoAbono)}) se paga el día de tu cita.
           </p>
         </div>
       )}

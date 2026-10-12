@@ -20,8 +20,18 @@ docker compose up --build
 
 - Frontend: http://localhost:5173
 - API: http://localhost:5000/api/health → `{"status": "ok", "db": "ok"}`
+- Emails de prueba (Mailpit): http://localhost:8025. Ningún email sale a internet en desarrollo.
 
 El frontend llama a `/api` por el proxy de Vite, así que no hace falta CORS.
+
+## Panel del negocio
+
+El panel está en http://localhost:5173/admin. Para crear la cuenta de la dueña
+(pide la clave dos veces, mínimo 10 caracteres):
+
+```bash
+docker compose exec backend flask crear-admin correo@negocio.cl
+```
 
 ## Tests y calidad
 

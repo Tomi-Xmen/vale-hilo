@@ -20,7 +20,9 @@ export default defineConfig({
     // Simula un navegador para poder renderizar componentes en los tests.
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
-    // En Windows los procesos separados ("forks") tardan demasiado en arrancar.
+    // En este PC los workers tardan en arrancar y, si parten varios a la vez, Vitest
+    // se rinde esperando. Con threads y uno a la vez es más lento pero confiable.
     pool: 'threads',
+    maxWorkers: 1,
   },
 })

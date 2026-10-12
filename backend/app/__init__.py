@@ -6,6 +6,7 @@ from app.config import configs
 from app.errores import registrar_manejadores_de_errores
 from app.extensions import db, migrate
 from app.modules import register_blueprints
+from app.modules.auth.comandos import crear_admin
 
 
 def create_app(config_name=None):
@@ -19,5 +20,6 @@ def create_app(config_name=None):
 
     register_blueprints(app)
     registrar_manejadores_de_errores(app)
+    app.cli.add_command(crear_admin)
 
     return app

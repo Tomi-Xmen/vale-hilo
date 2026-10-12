@@ -1,0 +1,14 @@
+{% extends "correos/base.html" %}
+{% block contenido %}
+<h1 style="margin:0 0 8px; font-size:22px;">Tu reserva fue cancelada</h1>
+<p style="margin:0 0 16px;">Hola {{ cliente_nombre }}, lamentamos avisarte que cancelamos esta reserva:</p>
+{% include "correos/_detalle_reserva.html" %}
+<p style="margin:16px 0 0; font-size:14px; color:#4b5563;">
+  {% if abono_devuelto %}
+  Te devolvimos el abono de {{ abono }} a la misma tarjeta con que pagaste. Puede tardar algunos
+  días en aparecer, según tu banco.
+  {% else %}
+  Si tienes dudas sobre tu abono, responde este correo y lo vemos.
+  {% endif %}
+</p>
+{% endblock %}

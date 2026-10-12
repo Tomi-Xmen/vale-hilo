@@ -40,3 +40,30 @@ class ReservaOut(BaseModel):
     estado: str
     monto_abono: int
     expira_en: datetime | None
+
+
+# --- Panel del negocio -------------------------------------------------------
+
+
+class AgendaQuery(BaseModel):
+    fecha: date
+
+
+class CancelacionIn(BaseModel):
+    devolver_abono: bool = False
+
+
+class ReservaAdminOut(BaseModel):
+    """Lo que ve la dueña en el panel: a diferencia de ReservaOut, incluye el contacto."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    servicio_nombre: str
+    inicio: datetime
+    fin: datetime
+    estado: str
+    monto_abono: int
+    cliente_nombre: str
+    cliente_email: str
+    cliente_telefono: str

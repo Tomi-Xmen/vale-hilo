@@ -18,7 +18,7 @@ export function ResultadoReservaPage() {
   if (isError) return <p className="text-red-600">No encontramos esta reserva.</p>
 
   return (
-    <div className="mx-auto max-w-lg rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+    <div className="mx-auto max-w-lg rounded-2xl border border-marca-100 bg-white p-6 shadow-sm shadow-marca-100 sm:p-8">
       {reserva.estado === 'confirmada' && <ReservaConfirmada reserva={reserva} />}
       {reserva.estado !== 'confirmada' && reserva.puede_pagar && (
         <PagoPendiente reserva={reserva} />
@@ -36,7 +36,7 @@ function ReservaConfirmada({ reserva }: { reserva: Reserva }) {
       <Encabezado icono="✓" color="bg-green-100 text-green-700" titulo="¡Reserva confirmada!" />
       <DetalleReserva reserva={reserva} />
       <p className="mt-4 text-sm text-gray-600">
-        Pagaste un abono de {formatPrecio(reserva.monto_abono)}. El resto se paga en el local.
+        Pagaste un abono de {formatPrecio(reserva.monto_abono)}. El resto se paga el día de tu cita.
       </p>
       <Link to="/" className={`${estilosBoton('secundario')} mt-6 w-full`}>
         Volver al inicio
@@ -101,7 +101,7 @@ function Encabezado({ icono, color, titulo }: { icono: string; color: string; ti
       >
         {icono}
       </span>
-      <h1 className="text-2xl font-semibold">{titulo}</h1>
+      <h1 className="font-display text-3xl font-semibold">{titulo}</h1>
     </div>
   )
 }
@@ -109,7 +109,7 @@ function Encabezado({ icono, color, titulo }: { icono: string; color: string; ti
 function DetalleReserva({ reserva }: { reserva: Reserva }) {
   const inicio = desdeISO(reserva.inicio)
   return (
-    <dl className="space-y-2 rounded-lg bg-gray-50 p-4 text-sm">
+    <dl className="space-y-2 rounded-xl bg-marca-50 p-4 text-sm">
       <Fila nombre="Servicio">{reserva.servicio_nombre}</Fila>
       <Fila nombre="Día">
         <span className="first-letter:uppercase">{formatFechaLarga(inicio)}</span>

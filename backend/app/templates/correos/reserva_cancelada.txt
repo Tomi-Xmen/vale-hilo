@@ -1,0 +1,10 @@
+Tu reserva fue cancelada
+
+Hola {{ cliente_nombre }}, lamentamos avisarte que cancelamos esta reserva:
+
+Servicio: {{ servicio }}
+Cuándo: {{ cuando }}
+
+{% if abono_devuelto %}Te devolvimos el abono de {{ abono }} a la misma tarjeta con que pagaste. Puede tardar algunos días en aparecer, según tu banco.{% else %}Si tienes dudas sobre tu abono, responde este correo y lo vemos.{% endif %}
+
+{{ nombre_negocio }}

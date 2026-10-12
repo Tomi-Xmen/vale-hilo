@@ -9,7 +9,11 @@ export class HttpError extends Error {
   }
 }
 
-async function pedir<T>(metodo: 'GET' | 'POST', path: string, cuerpo?: unknown): Promise<T> {
+async function pedir<T>(
+  metodo: 'GET' | 'POST' | 'PUT',
+  path: string,
+  cuerpo?: unknown,
+): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`, {
     method: metodo,
     headers: cuerpo === undefined ? undefined : { 'Content-Type': 'application/json' },
@@ -28,3 +32,5 @@ async function pedir<T>(metodo: 'GET' | 'POST', path: string, cuerpo?: unknown):
 export const get = <T>(path: string) => pedir<T>('GET', path)
 
 export const post = <T>(path: string, cuerpo: unknown) => pedir<T>('POST', path, cuerpo)
+
+export const put = <T>(path: string, cuerpo: unknown) => pedir<T>('PUT', path, cuerpo)

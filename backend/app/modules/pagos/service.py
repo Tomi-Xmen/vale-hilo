@@ -2,6 +2,7 @@ from flask import current_app
 from sqlalchemy import select
 
 from app.extensions import db
+from app.modules.notificaciones.service import avisar_reserva_confirmada
 from app.modules.pagos import webpay
 from app.modules.pagos.models import EstadoPago, Pago
 from app.modules.reservas.service import (
@@ -14,6 +15,26 @@ from app.modules.reservas.service import (
 
 class ReservaNoPagable(Exception):
     pass
+
+
+class SinPagoQueDevolver(Exception):
+    pass
+
+
+def devolver_abono(reserva_id):
+    """Devuelve al cliente el abono pagado de una reserva (por ejemplo, al cancelarla)."""
+    consulta = (
+        select(Pago)
+        .where(Pago.reserva_id == reserva_id, Pago.estado == EstadoPago.APROBADO)
+        .with_for_update()  # evita devolver dos veces si se aprieta "cancelar" dos veces
+    )
+    pago = db.session.scalars(consulta).first()
+    if pago is None:
+        raise SinPagoQueDevolver()
+
+    webpay.reembolsar(pago.token, pago.monto)
+    pago.estado = EstadoPago.REEMBOLSADO
+    db.session.commit()
 
 
 def iniciar_pago(reserva_id):
@@ -86,11 +107,15 @@ def _confirmar_pago(pago):
     pago.codigo_autorizacion = resultado.codigo_autorizacion
     pago.ultimos_digitos_tarjeta = resultado.ultimos_digitos_tarjeta
 
+    reserva = obtener_reserva(pago.reserva_id)
     try:
-        confirmar_reserva(obtener_reserva(pago.reserva_id))
+        confirmar_reserva(reserva)
     except HoraNoDisponible:
         # Pagó después de que expiró el bloqueo y alguien más tomó la hora.
         _devolver_dinero(pago)
+        return
+
+    avisar_reserva_confirmada(reserva)
 
 
 def _devolver_dinero(pago):

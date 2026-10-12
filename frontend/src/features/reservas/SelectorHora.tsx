@@ -10,7 +10,7 @@ export function SelectorHora({ horas, cargando, horaElegida, onElegir }: Props) 
 
   if (!horas || horas.length === 0) {
     return (
-      <p className="rounded-lg bg-gray-100 p-4 text-sm text-gray-600">
+      <p className="rounded-xl bg-marca-50 p-4 text-sm text-gray-600">
         No hay horas disponibles este día. Prueba con otro.
       </p>
     )
@@ -25,10 +25,10 @@ export function SelectorHora({ horas, cargando, horaElegida, onElegir }: Props) 
             key={hora}
             type="button"
             onClick={() => onElegir(hora)}
-            className={`rounded-lg border py-2 text-sm font-medium transition ${
+            className={`rounded-full border py-2 text-sm font-medium transition ${
               elegida
-                ? 'border-marca-600 bg-marca-600 text-white'
-                : 'border-gray-200 bg-white hover:border-marca-500'
+                ? 'border-tinta bg-tinta text-white'
+                : 'border-marca-100 bg-white hover:border-marca-500'
             }`}
           >
             {hora}

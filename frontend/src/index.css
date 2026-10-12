@@ -1,10 +1,20 @@
 @import 'tailwindcss';
 
-/* Color de la marca. Para cambiarlo, basta con cambiar estos valores. */
+/* Identidad visual de vale.hilo. Para cambiar la marca, basta con cambiar estos valores. */
 @theme {
-  --color-marca-50: #fdf2f6;
-  --color-marca-100: #fbe6ee;
-  --color-marca-500: #c0517f;
-  --color-marca-600: #a63d68;
-  --color-marca-700: #873355;
+  /* Rosa: fondos suaves, acentos y detalles. */
+  --color-marca-50: #fdf4f6;
+  --color-marca-100: #fbe7ec;
+  --color-marca-200: #f5cdd8;
+  --color-marca-500: #d97a9a;
+  --color-marca-600: #c25d80;
+  --color-marca-700: #9c4664; /* el rosa más oscuro: el único apto para texto chico */
+
+  /* Negro: textos y botones principales. */
+  --color-tinta: #161214;
+  --color-tinta-suave: #2e272a;
+
+  /* Títulos con una serif elegante; el resto con una sans-serif fácil de leer. */
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
 }

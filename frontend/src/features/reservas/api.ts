@@ -37,3 +37,23 @@ export const getDisponibilidad = (servicioId: number, fecha: string) =>
 export const crearReserva = (datos: ReservaNueva) => post<Reserva>('/reservas', datos)
 
 export const getReserva = (reservaId: number) => get<Reserva>(`/reservas/${reservaId}`)
+
+// --- Panel del negocio -------------------------------------------------------
+
+/** Una reserva vista desde el panel: incluye el contacto del cliente. */
+export type ReservaAgenda = {
+  id: number
+  servicio_nombre: string
+  inicio: string
+  fin: string
+  estado: EstadoReserva
+  monto_abono: number
+  cliente_nombre: string
+  cliente_email: string
+  cliente_telefono: string
+}
+
+export const getAgenda = (fecha: string) => get<ReservaAgenda[]>(`/admin/reservas?fecha=${fecha}`)
+
+export const cancelarReserva = (reservaId: number, devolverAbono: boolean) =>
+  post<ReservaAgenda>(`/admin/reservas/${reservaId}/cancelar`, { devolver_abono: devolverAbono })
