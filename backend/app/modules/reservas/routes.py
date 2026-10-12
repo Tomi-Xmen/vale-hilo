@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 
+from app.modules.reservas.reglas import calcular_abono
 from app.modules.reservas.schemas import DisponibilidadQuery, ReservaIn, ReservaOut
 from app.modules.reservas.service import (
     HoraNoDisponible,
@@ -26,6 +27,7 @@ def ver_disponibilidad():
     return {
         "fecha": consulta.fecha.isoformat(),
         "horas": [hora.strftime("%H:%M") for hora in horas],
+        "monto_abono": calcular_abono(servicio.precio),
     }
 
 

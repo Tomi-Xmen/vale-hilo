@@ -9,10 +9,22 @@ export class HttpError extends Error {
   }
 }
 
-export async function get<T>(path: string): Promise<T> {
-  const response = await fetch(`${BASE_URL}${path}`)
+async function pedir<T>(metodo: 'GET' | 'POST', path: string, cuerpo?: unknown): Promise<T> {
+  const response = await fetch(`${BASE_URL}${path}`, {
+    method: metodo,
+    headers: cuerpo === undefined ? undefined : { 'Content-Type': 'application/json' },
+    body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo),
+  })
+  const datos = await response.json().catch(() => null)
+
   if (!response.ok) {
-    throw new HttpError(response.status, `GET ${path} respondió ${response.status}`)
+    // El backend explica el problema en `error`; si no, se usa un mensaje genérico.
+    const mensaje = datos?.error ?? `${metodo} ${path} respondió ${response.status}`
+    throw new HttpError(response.status, mensaje)
   }
-  return response.json() as Promise<T>
+  return datos as T
 }
+
+export const get = <T>(path: string) => pedir<T>('GET', path)
+
+export const post = <T>(path: string, cuerpo: unknown) => pedir<T>('POST', path, cuerpo)

@@ -49,6 +49,7 @@ Frontend:
 cd frontend
 npm install
 npm run lint      # oxlint
+npm test          # tests con Vitest + Testing Library
 npm run format    # prettier
 npm run build     # chequeo de tipos + build
 ```
@@ -121,5 +122,5 @@ features/reservas/
 - Un módulo usa otro **solo a través de su `service.py`** (ej. `pagos` llama a
   `reservas.service`), nunca importando sus rutas.
 - `lib/` no importa nada de `features/`.
-- Una feature del frontend no importa archivos internos de otra; lo compartido se mueve
-  a `lib/` (o a `components/ui/` cuando haya componentes visuales reutilizables).
+- Una feature del frontend usa otra **solo a través de su `api.ts` o `hooks.ts`**
+  (ej. `reservas` usa `pagos/api.ts`); lo compartido se mueve a `lib/` o `components/ui/`.

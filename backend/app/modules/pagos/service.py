@@ -107,7 +107,11 @@ def _devolver_dinero(pago):
 
 
 def _buscar_pago_por_token(token):
-    return db.session.scalars(select(Pago).where(Pago.token == token)).first()
+    # `with_for_update` bloquea el pago hasta terminar de procesarlo. Si llegan dos
+    # retornos de Webpay a la vez (doble envío), el segundo espera y después ve el
+    # pago ya procesado, en vez de confirmarlo de nuevo y marcarlo como rechazado.
+    consulta = select(Pago).where(Pago.token == token).with_for_update()
+    return db.session.scalars(consulta).first()
 
 
 def _buscar_pago_iniciado_de_reserva(reserva_id):

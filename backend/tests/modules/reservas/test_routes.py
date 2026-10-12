@@ -12,7 +12,7 @@ def datos_reserva(servicio_id, inicio="2026-10-12T10:00:00"):
 
 
 def test_disponibilidad_devuelve_horas_del_dia(client, crear_servicio):
-    servicio = crear_servicio()
+    servicio = crear_servicio(precio=15000)
 
     response = client.get(f"/api/disponibilidad?servicio_id={servicio.id}&fecha=2026-10-12")
 
@@ -20,6 +20,7 @@ def test_disponibilidad_devuelve_horas_del_dia(client, crear_servicio):
     datos = response.get_json()
     assert datos["fecha"] == "2026-10-12"
     assert datos["horas"][:2] == ["10:00", "10:30"]
+    assert datos["monto_abono"] == 4500
 
 
 def test_disponibilidad_sin_parametros_es_invalida(client):

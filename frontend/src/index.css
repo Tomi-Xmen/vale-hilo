@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+/* Color de la marca. Para cambiarlo, basta con cambiar estos valores. */
+@theme {
+  --color-marca-50: #fdf2f6;
+  --color-marca-100: #fbe6ee;
+  --color-marca-500: #c0517f;
+  --color-marca-600: #a63d68;
+  --color-marca-700: #873355;
+}

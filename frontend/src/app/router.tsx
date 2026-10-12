@@ -1,18 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { AppLayout } from '@/app/layout/AppLayout'
-import { HealthStatus } from '@/features/health/HealthStatus'
-import { ServiciosPage } from '@/features/servicios/ServiciosPage'
+import { rutas } from '@/app/rutas'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <AppLayout />,
-    children: [
-      { index: true, element: <ServiciosPage /> },
-      { path: 'estado', element: <HealthStatus /> },
-    ],
-  },
-])
+const router = createBrowserRouter(rutas)
 
 export function AppRouter() {
   return <RouterProvider router={router} />
